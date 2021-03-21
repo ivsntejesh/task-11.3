@@ -1,0 +1,48 @@
+- hosts: 192.168.1.108
+  vars:
+          os_name: "{{ ansible_facts['distribution'] }}"
+  vars_files:
+          - port_var.yml
+  tasks:
+          - debug:
+                  var: os_name
+
+          - name: "Installing Httpd software" 
+            package:
+                  name: httpd
+                  state: present
+            when: os_name == "RedHat"
+
+          - name: "Installing apache2 software"
+            package:
+                    name: apache2
+                    state: present
+            when: os_name == "Ubuntu"        
+
+          - name: "Copy data to index1.html file"
+            copy:
+                  dest: "/var/www/html/index1.html"
+                  src: "/ansible-ws/task-11.3/index.html"
+
+          - name: "Changing conf file to change default settings"
+            template:
+                  dest: "/etc/httpd/conf.d/httpd_new.conf"
+                  src: "/ansible-ws/task-11.3/httpd_new.conf"
+            notify: webservice
+
+          - name: "starting the service"
+            service:
+                  name: httpd
+                  state: started
+
+          - firewalld:
+                  port: "{{ port }}/tcp"
+                  state: enabled
+                  permanent: yes
+                  immediate: yes
+
+  handlers:
+          - name: webservice
+            service:
+                    name: httpd
+                    state: restarted
