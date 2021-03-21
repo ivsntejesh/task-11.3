@@ -35,14 +35,15 @@
                   name: httpd
                   state: started
 
+  handlers:
+          - name: webservice
+            service:
+                    name: httpd
+                    state: restarted
+
           - firewalld:
                   port: "{{ port }}/tcp"
                   state: enabled
                   permanent: yes
                   immediate: yes
 
-  handlers:
-          - name: webservice
-            service:
-                    name: httpd
-                    state: restarted
