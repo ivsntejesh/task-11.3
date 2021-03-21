@@ -1,1 +1,3 @@
 port: 8084
+docroot: "/var/www/html"
+
