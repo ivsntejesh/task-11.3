@@ -1,3 +1,2 @@
-port: 8080
-docroot: "/var/www/teju1"
-
+port: 81
+docroot: "/var/www/tejesh1"
