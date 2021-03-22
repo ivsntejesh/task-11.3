@@ -37,7 +37,9 @@
             template:
                   dest: "/etc/httpd/conf.d/httpd_new.conf"
                   src: "/ansible-ws/task-11.3/httpd_new.conf"
-            notify: webservice
+            notify: 
+            - webservice
+            - porth
 
           - name: "starting the service"
             service:
@@ -50,7 +52,8 @@
                     name: httpd
                     state: restarted
 
-          - firewalld:
+          - name: porth
+            firewalld:
                   port: "{{ port }}/tcp"
                   state: enabled
                   permanent: yes
