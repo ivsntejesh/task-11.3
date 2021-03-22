@@ -11,5 +11,7 @@ This Repo has 4 files:
 3. port_var.yml ==> This is the area where you can edit the port number
 4. index.html ==> This is the file for index page in the webserver.
 
+This repo helps to change the port number and document root folder for the webserver. It also creates a doc_root if not present by default. Have capability to download software based on the OS. RedHat or Ubuntu.
+
 Happy learning !!
 
